@@ -7,7 +7,17 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [term, setTerm] = useState('');
 
- 
+  useEffect(() => {
+    fetch(
+      `https://pixabay.com/api/?key=22003206-e5ef9f8a78e621c5db088d227&q=${term}&image_type=photo&pretty=true`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setImages(data.hits);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [term]);
 
   return (
     <div className='container mx-auto'>
